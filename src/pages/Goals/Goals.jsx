@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 const Goals = ({goals}) => {
   return (
     <>
@@ -11,6 +11,7 @@ const Goals = ({goals}) => {
         </div>
         )}
     </div>
+
     </>
   );
 }

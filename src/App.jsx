@@ -9,7 +9,7 @@ import Landing from './pages/Landing/Landing'
 import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
 import Goals from './pages/Goals/Goals'
-
+import AddGoal from './pages/AddGoal/AddGoal'
 // components
 import NavBar from './components/NavBar/NavBar'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
@@ -17,6 +17,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 // services
 import * as authService from './services/authService'
 import * as profileService from './services/profileService'
+import * as goalService from './services/goalService'
 // styles
 import './App.css'
 
@@ -42,6 +43,12 @@ const App = () => {
     }
     fetchAllGoals()
   }, [user])
+
+  const handleAddGoal = async (goalData) => {
+    const newGoal = await goalService.create(goalData)
+    setGoals([...goals, newGoal])
+    navigate('/goals')
+  }
 
   return (
     <>
@@ -75,8 +82,18 @@ const App = () => {
         <Route 
           path='/goals'
           element={
-            <Goals goals={goals}/>
+            <ProtectedRoute user={user}>
+              <Goals goals={goals}/>
+            </ProtectedRoute>
           }
+        />
+        <Route 
+        path='/addGoal'
+        element={
+          <ProtectedRoute>
+            <AddGoal handleAddGoal={handleAddGoal}/>
+          </ProtectedRoute>
+        }
         />
       </Routes>
     </>
