@@ -16,12 +16,11 @@ const AddGoal = (props) => {
 
   return (
     <>
-    <p>Create a goal</p>
     <form onSubmit={handleSubmit}>
       <p>Create a goal</p>
       <textarea 
-      cols="30" 
-      rows="10"
+      cols="50" 
+      rows="5"
       value={form.description}
       name='description'
       onChange={handleChange}

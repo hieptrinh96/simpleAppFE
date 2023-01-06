@@ -88,9 +88,9 @@ const App = () => {
           }
         />
         <Route 
-        path='/addGoal'
+        path='/add-goal'
         element={
-          <ProtectedRoute>
+          <ProtectedRoute user={user}>
             <AddGoal handleAddGoal={handleAddGoal}/>
           </ProtectedRoute>
         }
