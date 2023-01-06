@@ -1,5 +1,5 @@
 // npm modules
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 
 // page components
@@ -8,6 +8,7 @@ import Login from './pages/Login/Login'
 import Landing from './pages/Landing/Landing'
 import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
+import Goals from './pages/Goals/Goals'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -15,12 +16,13 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
 import * as authService from './services/authService'
-
+import * as profileService from './services/profileService'
 // styles
 import './App.css'
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser())
+  const [goals, setGoals] = useState([])
   const navigate = useNavigate()
 
   const handleLogout = () => {
@@ -32,6 +34,14 @@ const App = () => {
   const handleSignupOrLogin = () => {
     setUser(authService.getUser())
   }
+
+  useEffect(() => {
+    const fetchAllGoals = async () => {
+      const goalData = await profileService.showMyGoals(user.profile)
+      setGoals(goalData)
+    }
+    fetchAllGoals()
+  }, [user])
 
   return (
     <>
@@ -60,6 +70,12 @@ const App = () => {
             <ProtectedRoute user={user}>
               <ChangePassword handleSignupOrLogin={handleSignupOrLogin} />
             </ProtectedRoute>
+          }
+        />
+        <Route 
+          path='/goals'
+          element={
+            <Goals goals={goals}/>
           }
         />
       </Routes>
