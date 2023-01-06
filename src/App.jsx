@@ -10,6 +10,7 @@ import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
 import Goals from './pages/Goals/Goals'
 import AddGoal from './pages/AddGoal/AddGoal'
+import GoalDetail from './pages/GoalDetail/GoalDetail'
 // components
 import NavBar from './components/NavBar/NavBar'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
@@ -47,6 +48,16 @@ const App = () => {
   const handleAddGoal = async (goalData) => {
     const newGoal = await goalService.create(goalData)
     setGoals([...goals, newGoal])
+    navigate('/goals')
+  }
+
+  const handleUpdateGoal = async (goalData) => {
+    const updateGoal = await goalService.update(goalData)
+    setGoals(
+      goals.map((goal) =>
+        goalData._id === goal._id ? updateGoal : goal
+      )
+    )
     navigate('/goals')
   }
 
@@ -92,6 +103,14 @@ const App = () => {
         element={
           <ProtectedRoute user={user}>
             <AddGoal handleAddGoal={handleAddGoal}/>
+          </ProtectedRoute>
+        }
+        />
+        <Route 
+        path='/goals/:goalId'
+        element={
+          <ProtectedRoute user={user}>
+            <GoalDetail handleUpdateGoal={handleUpdateGoal}/>
           </ProtectedRoute>
         }
         />
