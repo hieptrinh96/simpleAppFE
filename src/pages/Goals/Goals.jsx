@@ -5,7 +5,7 @@ const Goals = ({goals}) => {
     <h1>List of Goals</h1>
     <div>
       {goals.map(goal =>
-        <Link to='/goalDetail' key={goal._id} state={goal}>
+        <Link to='/goals/:goalId' key={goal._id} state={goal}>
           <p>{goal.description}</p>
           <p>{goal.completed}</p>
         </Link>

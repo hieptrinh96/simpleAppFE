@@ -11,6 +11,7 @@ import ChangePassword from './pages/ChangePassword/ChangePassword'
 import Goals from './pages/Goals/Goals'
 import AddGoal from './pages/AddGoal/AddGoal'
 import GoalDetail from './pages/GoalDetail/GoalDetail'
+import EditGoal from './pages/EditGoal/EditGoal'
 // components
 import NavBar from './components/NavBar/NavBar'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
@@ -110,7 +111,15 @@ const App = () => {
         path='/goals/:goalId'
         element={
           <ProtectedRoute user={user}>
-            <GoalDetail handleUpdateGoal={handleUpdateGoal}/>
+            <GoalDetail />
+          </ProtectedRoute>
+        }
+        />
+        <Route 
+        path='/goals/:goalId/edit'
+        element={
+          <ProtectedRoute user={user}>
+            <EditGoal handleUpdateGoal={handleUpdateGoal}/>
           </ProtectedRoute>
         }
         />
