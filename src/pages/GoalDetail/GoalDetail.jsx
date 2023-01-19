@@ -1,12 +1,9 @@
-import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-const GoalDetail = () => {
-  const { state } = useLocation({})
+const GoalDetail = ({goal}) => {
   return (
     <>
-    <h1>Goal Detail</h1>
-    <p>{state.description}</p>
-    <Link to='/goals/:goalId/edit'>
+    <p>{goal.description}</p>
+    <Link to='/goals/:goalId/edit' state={goal}>
     <button>Update Goal</button>
     </Link>
     </>
