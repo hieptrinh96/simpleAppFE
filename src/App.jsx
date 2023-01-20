@@ -1,6 +1,6 @@
 // npm modules
 import { useEffect, useState } from 'react'
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 // page components
 import Signup from './pages/Signup/Signup'
@@ -62,6 +62,14 @@ const App = () => {
     navigate('/goals')
   }
 
+  const handleDeleteGoal = async (id) => {
+    const deletedGoal = await goalService.deleteGoal(id)
+    setGoals(
+      goals.filter((goal) => goal._id !== deletedGoal._id)
+    )
+    navigate('/goals')
+  }
+
   return (
     <>
       <NavBar user={user} handleLogout={handleLogout} />
@@ -119,7 +127,10 @@ const App = () => {
         path='/goals/:goalId/edit'
         element={
           <ProtectedRoute user={user}>
-            <EditGoal handleUpdateGoal={handleUpdateGoal}/>
+            <EditGoal 
+              handleUpdateGoal={handleUpdateGoal}
+              handleDeleteGoal={handleDeleteGoal}
+              />
           </ProtectedRoute>
         }
         />

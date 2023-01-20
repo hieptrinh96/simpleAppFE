@@ -19,8 +19,8 @@ const EditGoal = (props) => {
       <textarea name="description" cols="30" rows="10" onChange={handleChange} />
       <button type="submit">Submit</button>
     </form>
+    <button onClick={() => props.handleDeleteGoal(state._id)}>Delete Goal</button>
     </>
-
   );
 }
  
